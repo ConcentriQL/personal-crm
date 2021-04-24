@@ -4,16 +4,16 @@ module.exports = {
     entry: './client/index.js',
     output: {
         //path
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, '/build'),
         //file name
         filename: 'bundle.js',
-        publicPath: '/'
+        publicPath: '/build'
     },
     mode: process.env.NODE_ENV,
     devServer: {
         host: 'localhost',
         port: 8080,
-        publicPath: '/',
+        publicPath: '/build',
         proxy: {
           '/api/**': 'http://localhost:3000/',
         },
