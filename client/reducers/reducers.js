@@ -7,10 +7,12 @@ import * as types from '../actions/actionTypes.js';
 const initialState = {
     //need to decide what info needed for display
     userContacts = {
-        $contactId: {name: "Helen", touchEvents: []},
-        $contactId: {name: "Patty", touchEvents: []}
-},
-    userTouchEvents = []
+        1: {contactName: "Helen", email: 'lsdjfalksd@gmail.com', phoneNumber: '123456789', prefferedMethod: 'email', contactCircle: 'family', contactPriority: 'high', touchEvents: ['Touch Event 1', 'Touch Event 2']},
+        2: {contactName: "Helen", email: 'lsdjfalksd@gmail.com', phoneNumber: '123456789', prefferedMethod: 'email', contactCircle: 'family', contactPriority: 'high', touchEvents: ['Touch Event 1', 'Touch Event 2']}
+    },
+    userTouchEvents = {
+        $touchId: {name: "Birthday"}
+    }
 }
 
 const reducer = (state = initialState, action) => {
