@@ -12,7 +12,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
     //every action as a function with dispatch invoked
-    //eg: createNewContact: (<ANY PARAMETERS NEEDED>) => dipatch(actions.createNewContact(<PASS IN ARGUMENTS>))
+    //eg: createNewContact: (<ANY PARAMETERS NEEDED>) => dispatch(actions.createNewContact(<PASS IN ARGUMENTS>))
 })
 
 const MainContainer = props => (

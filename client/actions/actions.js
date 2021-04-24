@@ -7,3 +7,12 @@ import axios from 'axios';
     //dipatch to be used to dispatch to our reducers
     //getState is used if we need to do any axios put/patch/delete etc based on current state
 //}
+
+export const getUserContacts = (userID) => {
+    axios.get(/*specific path*/)
+    .then(response => { //response = array of objects
+        response.forEach(contact => {
+            axios.get(/*specific path*/) //contacts touch event id
+        })
+    })
+}
