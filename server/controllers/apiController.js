@@ -5,6 +5,7 @@ const fetch = require('node-fetch');
 
 const apiController = {};
 
-// apiController.solve = (req, res, next) => {
+apiController.solve = (req, res, next) => {
+};
 
-// };
+module.exports = apiController;
