@@ -9,8 +9,8 @@ import store from './store.js';
 //import style file here for webpack to configure it into bundle.js
 
 render(
-    <Proivder store = {store}>
+    <Provider store = {store}>
         <App />,
-    </Proivder>,
+    </Provider>,
     document.getElementById('root')
 );
