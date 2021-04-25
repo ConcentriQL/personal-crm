@@ -3,10 +3,17 @@ const dbModel = require('../../models/dbModel.js');
 const router = express.Router();
 const dbController = require('../controllers/dbController.js');
 
-/*
-router.post('/createcontact', (req, res) => {
-    //req.body = {name: Kat, phone: 123; email: }
 
+/*
+This file will have all of the request methods going to the database, the middleware structure and the will be sending the responses back to the client
+*/
+
+//client will be sending a POST request to add a new contact to the contact table in the db
+router.post('/createcontact', dbController.createContact, (req, res) => {
+  res.sendStatus(200)
+})
+    //req.body = {name: Kat, phone: 123; email: }
+/*
     const contactName = req.body.contact_name;
     const contactPhone = req.body.contact_phone;
     const contactEmail = req.body.contact_email;
