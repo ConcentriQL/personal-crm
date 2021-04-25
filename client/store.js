@@ -2,13 +2,15 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 //import reducers file here
-import mainReducer from './reducers/reducers';
+import userData from './reducers/userDataReducers';
+import displayReducer from './reducers/displayReducers'
+import reducers from './reducers/index.js'
 //import actions file here if you want to use line 17
 
 
 
 const store = createStore(
-    mainReducer,
+    reducers,
     composeWithDevTools(applyMiddleware(thunk))
 );
 

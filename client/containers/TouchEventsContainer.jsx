@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions.js';
 import TouchEventCard from '../components/TouchEventCard.jsx';
 
-const mapStateToProps = ( mainReducer ) => ({  
-  userContacts: mainReducer.userContacts,
-  userTouchEvents: mainReducer.userTouchEvents,
+const mapStateToProps = ( { userData } ) => ({  
+  userContacts: userData.userContacts,
+  userTouchEvents: userData.userTouchEvents,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -28,7 +28,8 @@ const TouchEventsContainer = props => {
     // doing it this way will allow us to sort the events before rendering
     const key = Object.keys(userTouchEvents)[i] 
     touchEventCardList.push(
-      <TouchEventCard 
+      <TouchEventCard
+        key={i} 
         touchObj={userTouchEvents[key]} 
         userContacts={userContacts} 
       />

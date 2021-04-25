@@ -7,8 +7,8 @@ import ContactsContainer from './ContactsContainer.jsx';
 import TouchEventsContainer from './TouchEventsContainer.jsx'
 
 
-const mapStateToProps = ( mainReducer ) => ({
-    userInfo : mainReducer.userInfo
+const mapStateToProps = ( { userData } ) => ({
+    userInfo : userData.userInfo
 });
     //separate out each reducer
 

@@ -14,7 +14,7 @@ const ContactUpcomingTouches = props => {
     touchLabel = touchObj.name; //would like to change the variavble "name" to label
     
     upcomingTouchList.push(
-    <li id={`cc-ut-${touchId}`}> {/* li #id = contactCard-upcomingTouch-id*/}
+    <li key={i} id={`cc-ut-${touchId}`}> {/* li #id = contactCard-upcomingTouch-id*/}
       <p><span className="upcoming-touch-date">{touchDate}: </span><span className="upcoming-touch-label">{touchLabel}</span></p>
     </li>
     )

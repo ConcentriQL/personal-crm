@@ -87,7 +87,7 @@ const reducers = (state = initialState, action) => {
           }
         }
 
-        case types.SIGN_OUT_USER: {
+        case types.CLEAR_USER_DATA: {
           return initialState
         }
             

@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions.js';
 import ContactCard from '../components/ContactCard.jsx'
 
-const mapStateToProps = ( mainReducer ) => ({  
-  userContacts: mainReducer.userContacts,
-  userTouchEvents: mainReducer.userTouchEvents,
+const mapStateToProps = ( { userData } ) => ({  
+  userContacts: userData.userContacts,
+  userTouchEvents: userData.userTouchEvents,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -29,6 +29,7 @@ const ContactsContainer = props => {
     const key = Object.keys(userContacts)[i]
     contactCardList.push(
       <ContactCard 
+        key={i}
         contactObj={userContacts[key]} 
         userTouchEvents={userTouchEvents} 
       />
