@@ -7,8 +7,8 @@ import ContactsContainer from './ContactsContainer.jsx';
 import TouchEventsContainer from './TouchEventsContainer.jsx'
 
 
-const mapStateToProps = ( mainReducer ) => ({
-    userInfo : mainReducer.userInfo
+const mapStateToProps = ( { userData } ) => ({
+    userInfo : userData.userInfo
 });
     //separate out each reducer
 
@@ -16,6 +16,7 @@ const mapStateToProps = ( mainReducer ) => ({
 const mapDispatchToProps = dispatch => ({
     //every action as a function with dispatch invoked
     //eg: createNewContact: (<ANY PARAMETERS NEEDED>) => dispatch(actions.createNewContact(<PASS IN ARGUMENTS>))
+    getUser: (userId) => dispatch(getUser(userId)),
 
 })
 
@@ -31,6 +32,5 @@ const MainContainer = props => (
     </div>
 );
 
-export default connect(mapStateToProps, null)(MainContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
 
-//need to change to mapDispatchToProps where null is
