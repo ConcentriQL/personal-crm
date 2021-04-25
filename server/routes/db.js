@@ -11,7 +11,7 @@ This file will have all of the request methods going to the database, the middle
 //client will be sending a POST request to add a new contact to the contact table in the db
 router.post('/createcontact', dbController.createContact, (req, res) => {
   res.sendStatus(200)
-}
+})
     //req.body = {name: Kat, phone: 123; email: }
 /*
     const contactName = req.body.contact_name;
