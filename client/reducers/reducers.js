@@ -8,9 +8,11 @@ import * as types from '../actions/actionTypes.js';
 const initialState = {
     //dummy state
     userContacts: {
-        1: {contactId: 1, contactFirstName: "Helen", contactLastName: "Regula", email: 'lsdjfalksd@gmail.com', phoneNumber: '123456789', prefferedMethod: 'email', contactCircle: 'family', contactPriority: 'high', touchEventIds: [1, 2]},
-        2: {contactId: 2, contactName: "James", email: 'other@gmail.com', phoneNumber: '987654321', prefferedMethod: 'phone', contactCircle: 'family', contactPriority: 'low', touchEventIds: [1,2]}
+        1: {contactId: 1, firstName: "Helen", lastName: "Regula", email: 'lsdjfalksd@gmail.com', phoneNumber: '123456789', prefferedMethod: 'email', contactCircle: 'family', contactPriority: 'high', touchEventIds: [1, 2]},
+        2: {contactId: 2, firstName: "James", lastName: null, email: 'other@gmail.com', phoneNumber: '987654321', prefferedMethod: 'phone', contactCircle: 'family', contactPriority: 'low', touchEventIds: [1,2]},
+        3: {contactId: 3, firstName: "Kat", lastName: '', email: '277@gmail.com', phoneNumber: '1231234455', prefferedMethod: 'phone', contactCircle: 'family', contactPriority: 'low', touchEventIds: []}
     },
+    //TODO: we need to add the contact Id's to the touch state if we're going to list contact info on the cards
     userTouchEvents: {
         1: {eventId: 1, name: "Birthday", eventDate: '2022-01-09', eventTime: '4:00pm', eventImportance: 'high', isRecurring: 'annual'},
         2: {eventId: 2, name: "Follow Up", eventDate: '2021-05-18', eventTime: '7:59am', eventImportance: 'medium', isRecurring: 'once'}
@@ -21,6 +23,7 @@ const initialState = {
       lastName: 'Baggins',
       email: 'bibbaggins03@aol.com'
     }
+    //we should add a display reducers that will control the flow of the display state. (which toggle is clicked, how many cards are showing, is a modal open, loggedinVsOut)
 }
 
 const reducers = (state = initialState, action) => {

@@ -23,9 +23,9 @@ const MainContainer = props => (
     //insert all subsequent containers or buttons etc. here
     //eg: <ContactsContainer {...props} />
     //<TouchEventsContainer {...props} />
-    <div>
-      <h2>MainContainer</h2>
-      <h3>Hi, {props.userInfo.firstName}</h3>
+    <div className="main-container">
+      <h3>Welcome, {props.userInfo.firstName}</h3>
+      {/* TODO: Add Conditional Logic here based on page State (which option is picked) */}
       <ContactsContainer />
       <TouchEventsContainer />
     </div>
