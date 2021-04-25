@@ -12,6 +12,10 @@ This file will have all of the request methods going to the database, the middle
 router.post('/createcontact', dbController.createContact, (req, res) => {
   res.sendStatus(200)
 })
+
+
+//client sending a post request to login:
+
     //req.body = {name: Kat, phone: 123; email: }
 /*
     const contactName = req.body.contact_name;

@@ -33,12 +33,12 @@ const newContactParams = [userId, email, phonenumber, preferredContactMethod, ci
 const createContact = `INSERT INTO contact (contact_userid, contact_email, contact_phonenumber, contact_preferredcontactmethod, contact_circle, contact_priority, contact_first_name, contact_last_name)
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
 
+
+
+
+
+
 Deleting Contact:
-
-
-
-
-
 
 //given contact ID from fornt end
 //delete contact from contact table
