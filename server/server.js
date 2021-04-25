@@ -7,10 +7,12 @@ const apiroute = require('./routes/api.js');
 
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
-app.use('/api', apiroute);
-
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 })
+
+app.use('/api', apiroute);
+
+
 
 app.listen(PORT);
