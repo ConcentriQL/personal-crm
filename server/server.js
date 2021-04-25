@@ -5,8 +5,12 @@ const app = express();
 const db = require('../models/dbModel.js');
 const apiroute = require('./routes/api.js');
 const dbroute = require('./routes/db.js')
+// const bodyParser = require('body-parser');
 
 
+// app.use(bodyParser);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 /*
 
 */
@@ -17,7 +21,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api', apiroute);
-app.use('/api', apiroute);
+app.use('/database', dbroute);
 
 
 
