@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 //import actions file here
 import * as actions from '../actions/actions.js';
 import ContactCard from '../components/ContactCard.jsx'
+import ViewContact from '../components/forms/ViewContact.jsx';
 
-const mapStateToProps = ( mainReducer ) => ({  
-  userContacts: mainReducer.userContacts,
-  userTouchEvents: mainReducer.userTouchEvents,
+const mapStateToProps = ( { userData } ) => ({  
+  userContacts: userData.userContacts,
+  userTouchEvents: userData.userTouchEvents,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -20,7 +21,7 @@ const ContactsContainer = props => {
   //insert all subsequent containers or buttons etc. here
   const {userContacts, userTouchEvents} = props
   const contactCardList = [];
-  console.log(Object.keys(userContacts));
+  
   const maxContactsToShow = 5;
   let contactsToShow = Math.min(Object.keys(userContacts).length, maxContactsToShow); //move this to state and have it incremenent on scroll or click
   //use for of loop on Object keys to avoid accidentally traversing up the prototype chain w/ a for...in 
@@ -29,6 +30,7 @@ const ContactsContainer = props => {
     const key = Object.keys(userContacts)[i]
     contactCardList.push(
       <ContactCard 
+        key={i}
         contactObj={userContacts[key]} 
         userTouchEvents={userTouchEvents} 
       />
@@ -40,6 +42,7 @@ const ContactsContainer = props => {
     <div className="contactsContainer">
       <h2>Contacts</h2>
       {contactCardList}
+      <ViewContact contactObj={userContacts[2]}/>
     </div>
   )
   // redner an array of components, <ContactCard>

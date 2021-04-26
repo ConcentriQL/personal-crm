@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 //Import Provider for Redux
 import { Provider } from 'react-redux';
 //Import App.jsx
-import App from './components/App.jsx'
+import App from './App.jsx'
 //Import Store
 import store from './store.js';
 //import style file here for webpack to configure it into bundle.js
