@@ -6,12 +6,15 @@ const db = require('../models/dbModel.js');
 const apiroute = require('./routes/api.js');
 const dbroute = require('./routes/db.js');
 const eventroute = require('./routes/event.js')
+const loginroute = require('./routes/login.js')
+const signuproute = require('./routes/signup.js')
 const bodyParser = require('body-parser');
 
 
-app.use(bodyParser);
+// app.use(bodyParser);
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 /*
 
 */
@@ -24,6 +27,8 @@ app.get('/', (req, res) => {
 app.use('/api', apiroute);
 app.use('/database', dbroute);
 app.use('/events', eventroute);
+app.use('/login*', loginroute);
+app.use('/signup', signuproute);
 
 app.use('*', (req, res) => {
   res.status(400).send('page is not found');
