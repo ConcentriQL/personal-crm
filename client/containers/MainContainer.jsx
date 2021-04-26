@@ -7,16 +7,18 @@ import ContactsContainer from './ContactsContainer.jsx';
 import ViewButtons from '../components/ViewButtons.jsx'
 import LoginContainer from './LoginContainer.jsx';
 import TouchEventsContainer from './TouchEventsContainer.jsx'
+import ViewContact from '../components/forms/ViewContact.jsx';
 
 
 const mapStateToProps = ({ userData, display }) => ({
-    userInfo: userData.userInfo,
-    feedView: display.feedView,
-    cardView: display.cardView
+  userContacts: userData.userContacts,
+  userTouchEvents: userData.userTouchEvents,
+  userInfo: userData.userInfo,
+  feedView: display.feedView,
+  cardView: display.cardView
+
 });
 //separate out each reducer
-
-
 const mapDispatchToProps = dispatch => ({
     //every action as a function with dispatch invoked
     //eg: createNewContact: (<ANY PARAMETERS NEEDED>) => dispatch(actions.createNewContact(<PASS IN ARGUMENTS>))
@@ -27,21 +29,31 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const MainContainer = props => {
-
+  
     let view;
-
-
     //set view variable to render component based on the state of the app
     //this state is toggled by the user clicking buttons a the top of the main container
-    switch (props.feedView) {
-        case 'Contacts': {
-            view = <ContactsContainer />
-            break;
-        }
-        case 'Touches': {
-            view = <TouchEventsContainer />
-            break;
-        }
+    console.log(props.cardView.type);
+
+    //if there is a cardView property set, use it's type property in the switch. 
+    //else, use the feedView to decide what to render on the page
+    switch (props.cardView.type || props.feedView) {
+      case 'contactCard':{
+        // if the cardView state has a type of 'contact', render the card for a specific contact using id from the cardView object in state
+        view = <ViewContact contactObj={props.userContacts[props.cardView.id]}/>
+        break;
+      }
+      case 'touchCard':{
+        view = 0;
+      }
+      case 'Contacts': {
+        view = <ContactsContainer />
+        break;
+      }
+      case 'Touches': {
+        view = <TouchEventsContainer />
+        break;
+      }
     }
 
 

@@ -21,7 +21,7 @@ const ContactsContainer = props => {
   //insert all subsequent containers or buttons etc. here
   const {userContacts, userTouchEvents} = props
   const contactCardList = [];
-  console.log(Object.keys(userContacts));
+  
   const maxContactsToShow = 5;
   let contactsToShow = Math.min(Object.keys(userContacts).length, maxContactsToShow); //move this to state and have it incremenent on scroll or click
   //use for of loop on Object keys to avoid accidentally traversing up the prototype chain w/ a for...in 

@@ -53,9 +53,9 @@ export const getUser = (userId) => (dispatch, getState) => {
 
   userInfo = userInfoStub;
 
-  console.log('User Contacts: ', userContacts)
-  console.log('User Touch Events: ', userTouchEvents)
-  console.log('User Info: ', userInfo)
+  // console.log('User Contacts: ', userContacts)
+  // console.log('User Touch Events: ', userTouchEvents)
+  // console.log('User Info: ', userInfo)
   // axios.get(/*specific path*/)
   // .then(response => { //response = array of objects
   //     response.forEach(contact => {

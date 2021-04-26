@@ -42,17 +42,17 @@ const displayReducers = (state = initialState, action) => {
             }
         }
 
-        case types.VIEW_SPECIFIC_CONTACT:{
+        case types.VIEW_SPECIFIC_CONTACT:{          
           return {
             ...state,
-            cardView: {type: 'contact', id: action.payload}
+            cardView: {type: 'contactCard', id: action.payload}
           }
         }
 
         case types.VIEW_SPECIFIC_TOUCH:{
           return {
             ...state,
-            cardView: {type: 'touch', id: action.payload}
+            cardView: {type: 'touchCard', id: action.payload}
           }
         }
 

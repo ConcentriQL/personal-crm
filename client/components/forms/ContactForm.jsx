@@ -23,8 +23,6 @@ const ContactForm = props => {
   if(props.contactObj) contact = Object.assign(contact,contactObj)
   // need to fix the :disabled CSS https://stackoverflow.com/questions/47840194/how-to-disable-input-but-not-get-the-greyed-out-tone-on-the-text
 
-  console.log(contact);
-
   //render form
   return (
     //make sure to include the contact id for update requests in the onSubmit
