@@ -6,7 +6,7 @@ const db = require('../models/dbModel.js');
 const apiroute = require('./routes/api.js');
 const dbroute = require('./routes/db.js');
 const eventroute = require('./routes/event.js')
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 
 app.use(bodyParser);
