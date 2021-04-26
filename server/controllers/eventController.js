@@ -58,6 +58,8 @@ eventController.createevent = (req, res, next) => {
             //     return newResultArr;
             // }
 
+
+      
             // console.log(test(events));
             
          /*
@@ -154,6 +156,28 @@ contact_id = 1     j.contact_id = 1   j.event_id = 1    event_id = 1
 contact_id = 2     j.contact_id = 1   j.event_id = 2    event_id = 1
 contact_id = 3     j.contact_id = 2   j.event_id = 1    event_id = 2
 
+
+function test (arr) {
+  const id = {};
+  const newArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (id[arr[i].e_id]) {
+      let c = arr[i].contact
+      newArr[newArr.length - 1].contact.push(c);
+    }
+    else {
+      let c = arr[i].contact;
+      arr[i].contact = [c];
+      newArr.push(arr[i])
+      let event = arr[i].e_id;
+      id[event] = true;
+    }
+  }
+  
+  // console.log('test')
+  return newArr;
+}
+conso
 
 */
 
