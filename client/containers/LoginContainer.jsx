@@ -26,11 +26,11 @@ const LoginContainer = props => {
         props.getUser(3);
         console.log(e.target[0].value, e.target[1].value)
       }}>
+        <label htmlFor="username">Username </label>
         <input type="text" id="username" name="username" />
-        <label htmlFor="username">Username</label>
         <br />
+        <label htmlFor="password">Password </label>
         <input type="password" id="password" name="password" />
-        <label htmlFor="password">Password</label>
         <br />
         <button>Login</button>
       </form>

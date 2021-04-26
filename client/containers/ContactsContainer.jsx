@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 //import actions file here
 import * as actions from '../actions/actions.js';
 import ContactCard from '../components/ContactCard.jsx'
+import ViewContact from '../components/forms/ViewContact.jsx';
 
 const mapStateToProps = ( { userData } ) => ({  
   userContacts: userData.userContacts,
@@ -41,6 +42,7 @@ const ContactsContainer = props => {
     <div className="contactsContainer">
       <h2>Contacts</h2>
       {contactCardList}
+      <ViewContact contactObj={userContacts[2]}/>
     </div>
   )
   // redner an array of components, <ContactCard>

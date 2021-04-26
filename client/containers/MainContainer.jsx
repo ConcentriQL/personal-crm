@@ -11,7 +11,8 @@ import TouchEventsContainer from './TouchEventsContainer.jsx'
 
 const mapStateToProps = ({ userData, display }) => ({
     userInfo: userData.userInfo,
-    feedView: display.feedView
+    feedView: display.feedView,
+    cardView: display.cardView
 });
 //separate out each reducer
 
@@ -21,14 +22,17 @@ const mapDispatchToProps = dispatch => ({
     //eg: createNewContact: (<ANY PARAMETERS NEEDED>) => dispatch(actions.createNewContact(<PASS IN ARGUMENTS>))
     getUser: (userId) => dispatch(actions.getUser(userId)),
     viewContacts: () => dispatch(actions.viewContacts()),
-    viewTouchEvents: () => dispatch(actions.viewTouchEvents())
+    viewTouchEvents: () => dispatch(actions.viewTouchEvents()),
 
 })
 
 const MainContainer = props => {
 
     let view;
-    //decalre variable
+
+
+    //set view variable to render component based on the state of the app
+    //this state is toggled by the user clicking buttons a the top of the main container
     switch (props.feedView) {
         case 'Contacts': {
             view = <ContactsContainer />
@@ -39,7 +43,10 @@ const MainContainer = props => {
             break;
         }
     }
-    //variable set in switch
+
+
+
+  
 
 
     return (

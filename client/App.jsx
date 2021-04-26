@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import MainContainer from './containers/MainContainer.jsx'
 //import Login Container
 import LoginContainer from './containers/LoginContainer.jsx';
+import AddNewContact from './components/forms/AddNewContact.jsx'
 
 const mapStateToProps = ({ display }) => ({
   isLoggedIn: display.isLoggedIn
@@ -11,6 +12,7 @@ const mapStateToProps = ({ display }) => ({
 
 const App = props => {
   return (
+    //ONLY COMMENTED OUT TO TEST FORM LOGIC
     <div>
       { props.isLoggedIn
         ? <MainContainer />

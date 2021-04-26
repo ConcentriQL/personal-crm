@@ -10,3 +10,6 @@ export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const VIEW_CONTACTS = 'VIEW_CONTACTS';
 export const VIEW_TOUCH_EVENTS = 'VIEW_TOUCH_EVENTS';
+export const VIEW_SPECIFIC_CONTACT = 'VIEW_SPECIFIC_CONTACT';
+export const VIEW_SPECIFIC_TOUCH = 'VIEW_SPECIFIC_TOUCH';
+export const CLOSE_CARD = 'CLOSE_CARD';
