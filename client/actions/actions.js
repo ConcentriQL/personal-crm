@@ -27,14 +27,14 @@ export const getUser = (userId) => (dispatch, getState) => {
   // Stub data to sample DB
   //WE WILL NEED DATABASE USE ALIASES IN THE SELECT AND RETURNING STATEMENTS
   const userContactStub = [
-    { contactId: 1, firstName: "Helen", lastName: "Regula", email: 'lsdjfalksd@gmail.com', phoneNumber: '123456789', prefferedMethod: 'email', contactCircle: 'family', contactPriority: 'high', touchEventIds: [1, 2] },
-    { contactId: 2, firstName: "James", lastName: null, email: 'other@gmail.com', phoneNumber: '987654321', prefferedMethod: 'phone', contactCircle: 'family', contactPriority: 'low', touchEventIds: [1, 2] },
-    { contactId: 3, firstName: "Kat", lastName: '', email: '277@gmail.com', phoneNumber: '1231234455', prefferedMethod: 'phone', contactCircle: 'family', contactPriority: 'low', touchEventIds: [] }
+    { contactId: 1, firstName: "Helen", lastName: "Regula", email: 'lsdjfalksd@gmail.com', phoneNumber: '123456789', prefferedMethod: 'call', contactCircle: 'family', contactPriority: 'high', touchEventIds: [1, 2] },
+    { contactId: 2, firstName: "James", lastName: null, email: 'other@gmail.com', phoneNumber: '987654321', prefferedMethod: 'email', contactCircle: 'family', contactPriority: 'low', touchEventIds: [1, 2] },
+    { contactId: 3, firstName: "Kat", lastName: '', email: '277@gmail.com', phoneNumber: '1231234455', prefferedMethod: 'text', contactCircle: 'family', contactPriority: 'low', touchEventIds: [] }
   ]
 
   const userTouchEventStub = [
-    { eventId: 1, eventName: "Birthday", eventDate: '2022-01-09', touchTime: '4:00pm', eventImportance: 'high', eventRecurring: 'annual', numOfContacts: 1 },
-    { eventId: 2, eventName: "Follow Up", eventDate: '2021-05-18', touchTime: '7:59am', eventImportance: 'medium', eventRecurring: 'once', numOfContacts: 2 }
+    { eventId: 1, eventName: "Birthday", eventDate: '2022-01-09', touchTime: '4:00pm', eventImportance: 'high', eventRecurring: 'annual', numOfContacts: 1, associatedContacts: [2] },
+    { eventId: 2, eventName: "Follow Up", eventDate: '2021-05-18', touchTime: '7:59am', eventImportance: 'medium', eventRecurring: 'once', numOfContacts: 2, associatedContacts: [1,3] },
   ]
 
   const userInfoStub = {
@@ -53,9 +53,9 @@ export const getUser = (userId) => (dispatch, getState) => {
 
   userInfo = userInfoStub;
 
-  console.log('User Contacts: ', userContacts)
-  console.log('User Touch Events: ', userTouchEvents)
-  console.log('User Info: ', userInfo)
+  // console.log('User Contacts: ', userContacts)
+  // console.log('User Touch Events: ', userTouchEvents)
+  // console.log('User Info: ', userInfo)
   // axios.get(/*specific path*/)
   // .then(response => { //response = array of objects
   //     response.forEach(contact => {
@@ -96,8 +96,19 @@ export const viewTouchEvents = () => ({
   payload: 'Touches'
 })
 
+export const viewSpecificContact = (contactId) => ({
+  type: types.VIEW_SPECIFIC_CONTACT,
+  payload: contactId,
+})
 
+export const viewSpecificTouch = (touchId) => ({
+  type: types.VIEW_SPECIFIC_TOUCH,
+  payload: touchId,
+})
 
+export const closeCard = () => ({
+  type: types.CLOSE_CARD,
+})
 
 /*
 

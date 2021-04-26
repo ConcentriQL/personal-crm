@@ -37,8 +37,6 @@ const reducers = (state = initialState, action) => {
       const userContacts = action.payload.userContacts;
       const userTouchEvents = action.payload.userTouchEvents;
       const userInfo = action.payload.userInfo;
-
-      console.log('Action.Payload in Reducer: ', action.payload)
       //should be able to override state with single word because the labels match
       //may need to rename varibale names if code is breaking to different variable names than the ones in our state
       return {
@@ -54,7 +52,7 @@ const reducers = (state = initialState, action) => {
       newContacts[action.payload.contactId] = action.payload;
       return {
         ...state,
-        userContacts: newContacts
+        userContacts
       };
     }
 
@@ -63,7 +61,7 @@ const reducers = (state = initialState, action) => {
       newTouchEvent[action.payload.eventId] = action.payload;
       return {
         ...state,
-        userTouchEvents: newTouchEvent
+        userTouchEvents
       }
     }
 
