@@ -18,9 +18,9 @@ This file will provide all the functionality for our database middleware calls
 dbController.createContact = (req, res, next) => {
 
   //deconstruct our req body and assign all the values
-  const { contact_email, contact_phonenumber, contact_preferredcontactmethod, contact_circle, contact_priority, contact_first_name, contact_last_name, contact_userId} = req.body;
+  const { contactEmail, contactPhonenumber, contactPreferredontactmethod, contactCircle, contactPriority, contactFirstName, contactLastName, contactUserId} = req.body;
   //storing my sql parameters in an array instead of straight into the sql query to avoid sql injections
-  const newContactParams = [contact_email, contact_phonenumber, contact_preferredcontactmethod, contact_circle, contact_priority, contact_first_name, contact_last_name, contact_userId];
+  const newContactParams = [contactEmail, contactPhonenumber, contactPreferredcontactmethod, contactCircle, contactPriority, contactFirstName, contactLastName, contactUserId];
   //creating the query string to create a new contact
   const createContact = `INSERT INTO contact (contact_email, contact_phonenumber, contact_preferredcontactmethod, contact_circle, contact_priority, contact_first_name, contact_last_name, contact_userid)
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
@@ -53,12 +53,12 @@ dbController.createContact = (req, res, next) => {
 
 //get contacts
 dbController.getContact = (req, res, next) => {
-  const getContactsQuery = 'SELECT contact_first_name, contact_last_name FROM contact';
+  console.log('in here')
+  const getContactsQuery = 'SELECT contact_first_name as "contactFirstName", contact_last_name as "contactLastName", contact_email as "contactEmail" FROM contact';
 
   async function contactsInfo(){
     const result = await db.query(getContactsQuery);
-    console.log(result.rows);
-    res.locals.contactInfo = {contactFirstName: req.body.contact_first_name, contactLastName: req.body.contact_last_name, };
+    res.locals.contactInfo = result.rows;
     return next();
   } contactsInfo()
   .catch(err => {
@@ -90,17 +90,26 @@ dbController.updateContact = (req, res, next) => {
   const keys = [], values =[];
   //get id of contact to be updated
   const { contact_id } = req.params;
-
+  console.log(req.body)
   //iterate through req.body object, pushing keys and values into arrays if value of corresponding key is not equal to null
   for(let info in req.body){
-    if(req.body[info]) {
+    // if(req.body[info]) {
       keys.push(info);
       values.push(req.body[info]);
-    }
+    // }
   }
 
-
-  //
+  console.log(keys);
+  let snakeCased = '';
+  keys.forEach(string => {
+    for(let i = 0; i < string.length; i++){
+      if(string[i] === string[i].toUpperCase){
+        
+      } else {
+        snakeCased = snakeCased + string[i];
+      }
+    }
+  })
 
   //create beginning of query string and store it into variable
   let updateContactQuery = 'UPDATE contact SET ';

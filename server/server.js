@@ -9,9 +9,9 @@ const eventroute = require('./routes/event.js')
 const bodyParser = require('body-parser');
 
 
-app.use(bodyParser);
+// app.use(bodyParser);
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 /*
 
 */
