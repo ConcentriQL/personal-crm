@@ -4,8 +4,8 @@ import ContactUpcomingTouches from './ContactUpcomingTouches.jsx';
 const TouchEventCard = props => {
 
   const touchId = props.touchObj.id
-  const touchTime = props.touchObj.touchTime; 
-  const touchLabel = props.touchObj.label;
+  const touchTime = props.touchObj.eventTime; 
+  const touchName = props.touchObj.eventName;
   const contactInfo = props.userContacts;
 
   return (
