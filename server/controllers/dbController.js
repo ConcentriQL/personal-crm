@@ -10,14 +10,17 @@ This file will provide all the functionality for our database middleware calls
 */
 
 
+//CONTACTS TABLE
+
+//create contact
+
 //this middleware will grab the required information from the req.body object and insert that contact to the 
 dbController.createContact = (req, res, next) => {
-  console.log(req);
-  console.log(req.body);
+
   //deconstruct our req body and assign all the values
-  const { email, phonenumber, prefcontactmethod, circle, priority, firstName, lastName, userId} = req.body;
+  const { contact_email, contact_phonenumber, contact_preferredcontactmethod, contact_circle, contact_priority, contact_first_name, contact_last_name, contact_userId} = req.body;
   //storing my sql parameters in an array instead of straight into the sql query to avoid sql injections
-  const newContactParams = [email, phonenumber, prefcontactmethod, circle, priority, firstName, lastName, userId];
+  const newContactParams = [contact_email, contact_phonenumber, contact_preferredcontactmethod, contact_circle, contact_priority, contact_first_name, contact_last_name, contact_userId];
   //creating the query string to create a new contact
   const createContact = `INSERT INTO contact (contact_email, contact_phonenumber, contact_preferredcontactmethod, contact_circle, contact_priority, contact_first_name, contact_last_name, contact_userid)
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
@@ -46,5 +49,78 @@ dbController.createContact = (req, res, next) => {
         // message: {err: `Error while creating a new contact ${err}`}
       
 };
+
+
+//get contacts
+dbController.getContact = (req, res, next) => {
+  const getContactsQuery = 'SELECT contact_first_name, contact_last_name FROM contact';
+
+  async function contactsInfo(){
+    const result = await db.query(getContactsQuery);
+    console.log(result.rows);
+    res.locals.contactInfo = {contactFirstName: req.body.contact_first_name, contactLastName: req.body.contact_last_name, };
+    return next();
+  } contactsInfo()
+  .catch(err => {
+    next(err);
+  });
+};
+
+
+
+dbController.deleteContact = (req, res, next) => {
+  console.log('in delete contact')
+  const { contact_id } = req.params;
+  const paramId = [contact_id];
+  const deleteContactQuery = `DELETE FROM contact WHERE contact_id=$1`;
+
+  async function deleteContactRow() {
+    const deletion = await db.query(deleteContactQuery, paramId);
+    return next();
+  } deleteContactRow()
+  .catch(err => {
+    next(err);
+  })
+}
+
+
+//update contact
+dbController.updateContact = (req, res, next) => {
+
+  const keys = [], values =[];
+  //get id of contact to be updated
+  const { contact_id } = req.params;
+
+  //iterate through req.body object, pushing keys and values into arrays if value of corresponding key is not equal to null
+  for(let info in req.body){
+    if(req.body[info]) {
+      keys.push(info);
+      values.push(req.body[info]);
+    }
+  }
+
+
+  //
+
+  //create beginning of query string and store it into variable
+  let updateContactQuery = 'UPDATE contact SET ';
+  //iterate through keys array adding to query string name of key equal to corresponding index of query values (???)
+  for(let i = 0; i < keys.length; i++){
+    updateContactQuery = updateContactQuery + `${keys[i]} = $${i + 1}, `
+  }                                           //contact_first_name = $1
+  //remove ', ' from the end of string
+  updateContactQuerySliced = updateContactQuery.slice(0, -2);
+  //add condition to the query string which specifies that updates to be implemented for contact whose id was in the req.params
+  updateContactQuerySliced = updateContactQuerySliced + ` WHERE contact_id = ${id}`;
+
+  async function updateContactInfo(){
+    const update = await db.query(updateContactQuerySliced, values);
+    console.log(update);
+    return next()
+  } updateContactInfo()
+  .catch(err => next(err));
+
+}
+
 
 module.exports = dbController;

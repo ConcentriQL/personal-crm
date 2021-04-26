@@ -2,6 +2,7 @@ const express = require('express');
 const dbModel = require('../../models/dbModel.js');
 const router = express.Router();
 const dbController = require('../controllers/dbController.js');
+// const dbTouch = require('../controllers/dbTouch.js');
 
 
 /*
@@ -12,6 +13,34 @@ This file will have all of the request methods going to the database, the middle
 router.post('/createcontact', dbController.createContact, (req, res) => {
   res.sendStatus(200)
 })
+
+router.get('/getcontacts', dbController.getContact, (req, res) => {
+    res.status(200).json(res.locals.contactInfo);
+})
+
+router.patch('/updatecontactinfo/:contact_id', dbController.updateContact, (req, res) => {
+    res.sendStatus(200);
+})
+
+router.delete('/deletecontact/:contact_id', dbController.deleteContact, (req, res) => {
+    res.status(200).json('contact has been deleted')
+})
+
+
+
+
+
+
+
+// router.post('/createtouch', dbTouch.createTouch, (req, res) => {
+//     res.sendStatus(200)
+// })
+
+// router.get('/deletetouch/:eventid', dbTouch.deleteTouch, (req, res) => {
+//     res.sendStatus(200);
+// })
+
+
     //req.body = {name: Kat, phone: 123; email: }
 /*
     const contactName = req.body.contact_name;

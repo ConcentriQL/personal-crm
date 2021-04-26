@@ -4,7 +4,8 @@ const PORT = 3000;
 const app = express();
 const db = require('../models/dbModel.js');
 const apiroute = require('./routes/api.js');
-const dbroute = require('./routes/db.js')
+const dbroute = require('./routes/db.js');
+const eventroute = require('./routes/event.js')
 // const bodyParser = require('body-parser');
 
 
@@ -22,7 +23,16 @@ app.get('/', (req, res) => {
 
 app.use('/api', apiroute);
 app.use('/database', dbroute);
+app.use('/events', eventroute);
 
+app.use('*', (req, res) => {
+  res.status(400).send('page is not found');
+})
+
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
 
 
 app.listen(PORT);
