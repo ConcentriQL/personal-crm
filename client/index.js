@@ -7,6 +7,8 @@ import App from './App.jsx'
 //Import Store
 import store from './store.js';
 //import style file here for webpack to configure it into bundle.js
+import style from '../styles.scss';
+
 
 render(
     <Provider store = {store}>

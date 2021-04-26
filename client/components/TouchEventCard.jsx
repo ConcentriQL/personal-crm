@@ -8,6 +8,8 @@ const TouchEventCard = props => {
   const touchName = props.touchObj.eventName;
   const contactInfo = props.userContacts;
 
+  
+
   return (
     <p>Touch Card</p>
   )

@@ -7,11 +7,13 @@ import React from 'react';
 const ContactForm = props => {
 
   const {isViewOnly, contactObj} = props;
+  const isNew = (contactObj === 'new')
+
   //default state for the form, used for "Create new Contact"
   let contact = { 
     contactId: null, 
     firstName: null, 
-    lastName: '', 
+    lastName: null, 
     email: null, 
     phoneNumber: null,
     prefferedMethod: null,
@@ -19,8 +21,8 @@ const ContactForm = props => {
     contactPriority: 'Medium', 
   }
 
-  //if contactInfo obj is supplied, then we know this will be an update, so we overwrite the default values with the existing data
-  if(props.contactObj) contact = Object.assign(contact,contactObj)
+  //if the contactObj is not new, overwrite the default states with the contact specific info
+  if(!isNew) contact = Object.assign(contact,contactObj)
   // need to fix the :disabled CSS https://stackoverflow.com/questions/47840194/how-to-disable-input-but-not-get-the-greyed-out-tone-on-the-text
 
   //render form
@@ -32,7 +34,14 @@ const ContactForm = props => {
       className={`ContactForm ${props.formClass}`} 
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(e.target)}
+        console.log(e.target)
+        
+        if(isNew) {}//send create API call
+        else if(!isNew) {} //send update API Call
+        else {
+          console.log('and error occured submitting contact form');
+        }
+      }
         //put API call here
 
     }>
@@ -56,7 +65,7 @@ const ContactForm = props => {
         <label htmlFor="contact_phonenumber">Phone Number: </label>
         <input type="tel" id="contact_phonenumber" name="contact_phonenumber" defaultValue={contact.phoneNumber}/>
         <br />
-        <label htmlFor="contact_circle">Cirlce: </label>
+        <label htmlFor="contact_circle">Circle: </label>
         <select defaultValue={contact.contactCircle} id="contact_circle" name="contact_circle">
           <option value=''></option>
           <option value="family">Family</option>

@@ -9,7 +9,6 @@ body{
   display: grid;
   grid-template-columns: 1fr minmax(200px, 800px) 1fr;
   justify-content: center;
-
 }
 
 a {
@@ -23,11 +22,15 @@ a {
 .contact-pic {
   width: 2em;
   margin:0;
+
+  img {
+    width: 100%;
+  }
 }
 
-.contact-pic img {
-  width: 100%;
-}
+// .contact-pic img {
+
+// }
 
 .contact-card {
   display: flex;

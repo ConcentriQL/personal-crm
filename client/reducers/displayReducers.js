@@ -60,16 +60,16 @@ const displayReducers = (state = initialState, action) => {
           return{
             ...state,
             cardView: false
-          }
-        }
-
-        default: return state;
+          }   
+        }  
+            default: return state;
     }
-}
+   }
 
-export default displayReducers;
+    export default displayReducers;
+    
+    //need to add to store.js and index.js to access it
+    
+    
 
-//need to add to store.js and index.js to access it
-
-
-
+                                                                                      
