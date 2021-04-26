@@ -17,6 +17,6 @@ const store = createStore(
 
 
 //if we want to automatically load something from the database when first rendering use command below:
-// store.dispatch(actions.getUser(3));
+//store.dispatch(actions.getUser(3));
 
 export default store;

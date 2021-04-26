@@ -3,17 +3,18 @@ import { connect } from 'react-redux';
 //import the Main Container File
 import MainContainer from './containers/MainContainer.jsx'
 //import Login Container
+import LoginContainer from './containers/LoginContainer.jsx';
 
 const mapStateToProps = ({ display }) => ({
-    isLoggedIn: display.isLoggedIn
+  isLoggedIn: display.isLoggedIn
 })
 
 const App = props => {
-  return(
+  return (
     <div>
-      { props.isLoggedIn 
-      ? <MainContainer /> 
-      : <LoginContainer /> }
+      { props.isLoggedIn
+        ? <MainContainer />
+        : <LoginContainer />}
     </div>
   )
 }

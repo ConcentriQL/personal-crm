@@ -1,29 +1,40 @@
 //on button click make database call with email and password to verify login credentials
-  //returns boolean - if true, invoke login action creator (which will be)
-  //if false, display error alert
+//returns boolean - if true, invoke login action creator (which will be)
+//if false, display error alert
 import React from 'react';
 import { connect } from 'react-redux';
-import { logIn } from '../actions/actions.js';
+import { logIn, getUser } from '../actions/actions.js';
 import axios from 'axios';
 
-  //mapDispatchToProps
-mapDispatchToProps = (dispatch) => ({
-  logIn: () => dispatch(logIn())
+//mapDispatchToProps
+const mapDispatchToProps = (dispatch) => ({
+  logIn: () => dispatch(logIn()),
+  getUser: (id) => dispatch(getUser(id))
 })
 
 const LoginContainer = props => {
-  return(
+  return (
     <div className="login-page">
-      <form className="login-form" action="/PLACEHOLDER_LOGIN" method="post">
-        <input type="text" id="username" name="username"/>
-        <label for="username">Username</label>
+      <form className="login-form" action="/" method="post" onSubmit={(e) => {
+        e.preventDefault();
+        //do db post request 
+        //check if response is 200
+        //if yes invoke logIn & getUser
+        //save the sent back id to use in getUser
+        //else render error message
+        if (true) props.logIn();
+        props.getUser(3);
+        console.log(e.target[0].value, e.target[1].value)
+      }}>
+        <input type="text" id="username" name="username" />
+        <label htmlFor="username">Username</label>
         <br />
-        <input type="password" id="password" name="password"/>
-        <label for="password">Password</label>
+        <input type="password" id="password" name="password" />
+        <label htmlFor="password">Password</label>
         <br />
         <button>Login</button>
       </form>
-        {/* onClick = {(event) => {
+      {/* onClick = {(event) => {
             event.preventDefault
         //   axios.post('/PLACEHOLDER_LOGIN', {body: {
         //       email: document.getElementById('username').value
