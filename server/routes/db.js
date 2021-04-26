@@ -11,7 +11,7 @@ This file will have all of the request methods going to the database, the middle
 
 //client will be sending a POST request to add a new contact to the contact table in the db
 router.post('/createcontact', dbController.createContact, (req, res) => {
-  res.sendStatus(200)
+  res.status(200).send('new contact was successfully created')
 })
 
 router.get('/getcontacts', dbController.getContact, (req, res) => {
@@ -23,7 +23,7 @@ router.patch('/updatecontactinfo/:contact_id', dbController.updateContact, (req,
 })
 
 router.delete('/deletecontact/:contact_id', dbController.deleteContact, (req, res) => {
-    res.status(200).json('contact has been deleted')
+    res.status(200).json('contact has been deleted');
 })
 
 

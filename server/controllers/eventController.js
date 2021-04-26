@@ -31,6 +31,10 @@ eventController.createevent = (req, res, next) => {
     FROM event e LEFT JOIN joincontactandevent j ON e.event_id = j.event_id `;
     async function getAllEvents () {
         const events = await db.query(queryGetEvents);
+        console.log('test');
+        console.log(events.rows)
+        const newArray = updateCotnactIdtoArray(events.rows)
+        console.log(newArray);
          //initialize a new object to store previous event_ids
         //initialize a new array
         //iterate through the array of objects
@@ -155,31 +159,43 @@ eventController.deleteEvent = (req, res, next) => {
 contact_id = 1     j.contact_id = 1   j.event_id = 1    event_id = 1
 contact_id = 2     j.contact_id = 1   j.event_id = 2    event_id = 1
 contact_id = 3     j.contact_id = 2   j.event_id = 1    event_id = 2
+*/
 
-
-function test (arr) {
+function updateCotnactIdtoArray (arr) {
+  console.log('in the function')
+  //initialize an event_id holder object w/ event_id's from previous objects as keys and true as values
   const id = {};
+  //initialzing a new array that will be returning. We'll push in all objects that have an evnet_id that is not in our id object
   const newArr = [];
+  //iterate through initial array
   for (let i = 0; i < arr.length; i++) {
-    if (id[arr[i].e_id]) {
-      let c = arr[i].contact
-      newArr[newArr.length - 1].contact.push(c);
+    //check if the current object's event_id is currently in our id object
+    if (id[arr[i].event_id]) {
+      //if it is then grab the current objects contact_id and store it in variable c
+      let c = arr[i].contact_id
+      //push variable c in the previous object in our newArr's contact_id's array
+      newArr[newArr.length - 1].contact_id.push(c);
     }
+    //if event_id is not current in our id object then just into this else
     else {
-      let c = arr[i].contact;
-      arr[i].contact = [c];
+      //grab the contact_id and set equal to c
+      let c = arr[i].contact_id;
+      //grab the key contact_id in our object and reassign the value to be an array with c in it
+      arr[i].contact_id = [c];
+      //push object into newArr
       newArr.push(arr[i])
-      let event = arr[i].e_id;
+      //grab the event_id from our current object
+      let event = arr[i].event_id;
+      //store the event_id into the id object for future checking
       id[event] = true;
     }
   }
-  
-  // console.log('test')
+  //return newArr
   return newArr;
 }
-conso
 
-*/
+
+
 
 
 
