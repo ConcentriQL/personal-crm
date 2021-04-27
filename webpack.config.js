@@ -16,6 +16,7 @@ module.exports = {
         publicPath: '/build',
         proxy: {
           '/api/**': 'http://localhost:3000/',
+          '/events/**': 'http://localhost:3000/',
           '/database/**': 'http://localhost:3000/',
           '/login/**': 'http://localhost:3000/',
           '/signup/**': 'http://localhost:3000/',
@@ -45,6 +46,14 @@ module.exports = {
                   // Compiles Sass to CSS
                   "sass-loader",
                 ],
+            },
+            {
+              test: /\.(png|svg|jpe?g|gif|ico)$/i,
+              use: [
+                {
+                  loader: 'file-loader',
+                },
+              ],
             }
         ]
     }

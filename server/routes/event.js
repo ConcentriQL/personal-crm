@@ -6,7 +6,7 @@ const eventController = require('../controllers/eventController.js');
 router.post('/createevent', eventController.createevent, (req, res) => {
     res.status(200).send('event successdully created');
 })
-router.get('/getallevents/', eventController.getEvents, (req, res) => {
+router.post('/getallevents', eventController.getEvents, (req, res) => {
     res.status(200).json(res.locals.allEvents);
 })
 

@@ -42,7 +42,6 @@ const ContactsContainer = props => {
     <div className="contactsContainer">
       <h2>Contacts</h2>
       {contactCardList}
-      <ViewContact contactObj={userContacts[2]}/>
     </div>
   )
   // redner an array of components, <ContactCard>
