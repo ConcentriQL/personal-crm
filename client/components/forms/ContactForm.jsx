@@ -23,7 +23,8 @@ const ContactForm = props => {
 
   //if the contactObj is not new, overwrite the default states with the contact specific info
   if(!isNew) contact = Object.assign(contact,contactObj)
-  // need to fix the :disabled CSS https://stackoverflow.com/questions/47840194/how-to-disable-input-but-not-get-the-greyed-out-tone-on-the-text
+  // need to fix the :disabled CSS so it looks like a non-form (display only for a better UX)
+  // https://stackoverflow.com/questions/47840194/how-to-disable-input-but-not-get-the-greyed-out-tone-on-the-text
 
   //render form
   return (
