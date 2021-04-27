@@ -18,12 +18,10 @@ const mapStateToProps = ({ userData, display }) => ({
   userInfo: userData.userInfo,
   feedView: display.feedView,
   cardView: display.cardView
-
 });
-//separate out each reducer
+
+//separate out each reducer function to be used
 const mapDispatchToProps = dispatch => ({
-    //every action as a function with dispatch invoked
-    //eg: createNewContact: (<ANY PARAMETERS NEEDED>) => dispatch(actions.createNewContact(<PASS IN ARGUMENTS>))
     getUser: (userId) => dispatch(actions.getUser(userId)),
     viewContacts: () => dispatch(actions.viewContacts()),
     viewTouchEvents: () => dispatch(actions.viewTouchEvents()),
@@ -41,6 +39,7 @@ const MainContainer = props => {
     //if the state "cardView" has an id set to new, it means we want to create a new contact, so there is no obj to pass down
     const contactObj = props.cardView.id === 'new' ? 'new' : props.userContacts[props.cardView.id];
     const touchObj = props.cardView.id === 'new' ? 'new' : props.userTouchEvents[props.cardView.id];
+    
     //if there is a cardView property set, use it's type property in the switch. 
     //else, use the feedView to decide what to render on the page
     switch (props.cardView.type || props.feedView) {
@@ -53,6 +52,8 @@ const MainContainer = props => {
         view.push(<ViewTouch touchObj={touchObj}/>);
         break;
       }
+      // If there is a cardView property set, one of the above two cards would be triggered.
+      // If not, the below cases would be triggered from the feedView 
       case 'Contacts': {
         view.push(<ViewButtons
           viewContacts={props.viewContacts}
@@ -70,11 +71,6 @@ const MainContainer = props => {
         break;
       }
     }
-
-
-
-  
-
 
     return (
         //insert all subsequent containers or buttons etc. here
