@@ -16,6 +16,7 @@ const App = props => {
     //ONLY COMMENTED OUT TO TEST FORM LOGIC
     <div className="App-Container">
       <img className="App-Banner" src={banner} alt="ConcentriQL logo" />
+      //Based on the isLoggedIn State (which is set to true on successful login), rendr login or the MainApp
       { props.isLoggedIn
         ? <MainContainer />
         : <LoginContainer />}
