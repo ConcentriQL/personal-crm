@@ -12,6 +12,11 @@ const initialState = {
 
 }
 
+/* THE DISPLAY REDUCERS CONTROL THE DISPLAY RENDERING STATE OF OUR ONE PAGE APP 
+    - This file and piece of state should only be used to manage state that controls WHICH components render or how
+    - Data rendering should be controled in other reducers
+*/
+
 const displayReducers = (state = initialState, action) => {
     switch (action.type) {
         case types.LOG_IN: {

@@ -4,31 +4,29 @@ import axios from 'axios';
 import * as types from './actionTypes.js';
 
 
-//each action function can be exported individually
-//eg: export const <FUNCTION NAME HERE> = (<IF FUNCTION NEEDS PARAMETERS INSERT HERE>) => (dispatch, getState) {
-//dipatch to be used to dispatch to our reducers
-//getState is used if we need to do any axios put/patch/delete etc based on current state
-//}
-
-
-//need to add a default seconds parameter when sending it
-
-
-/* GET from DB:
+/* THIS IS THE BEAST - GET from DB:
      - User Info (a single object)
      - User Contacts (Array of Objects)
      - User TouchEvents (Array of Objects)
  */
 export const getUser = (userObj) => (dispatch, getState) => {
   
+  /* THE DB CALLS ARE CURRENTLY NOT IN SERVICE 
+    - There is stub code below that allows the page to render
+    - The DB should return similarly fromatted array and it should be processed into an object of objects and placed into State
+    - One issue the backend team had was sending the eventId and contactId back in camelCase, I beleive this is because they used it as a join key to their join table and couldn't also use an alias. ~ So the processing functions (commented below should be changed to process on event_id and contact_id or the backend error needs to be fixed)
+  */
+
   // variables to include in payload
   let userContacts, userTouchEvents, userInfo;
   
+  //Grab the userId from the userInfo Object to launch future DB calls
   const { userId } = userObj;
   console.log('USER ID IS: ',userId)
 
-  userInfo = userObj;
+  userInfo = userObj; //this copies the user info passed from login into the state
 
+  //This DB call should return a promise that evaluates to the processed userContacts  
   const getContacts = axios({
     method: 'post',
     url: `/database/getcontacts`,
@@ -40,6 +38,7 @@ export const getUser = (userObj) => (dispatch, getState) => {
     console.log('getContacts returned')
     console.log(result.data);
     userContacts = {}
+    //the line processes the API datat into an easily referenceable Object of Objects in state where the keys are contactId
     result.data.forEach(contactObj => userContacts[contactObj.contactId] = contactObj)
     return Promise.resolve(userContacts);
   })
@@ -47,6 +46,7 @@ export const getUser = (userObj) => (dispatch, getState) => {
     console.log(error)
   })
 
+  //This DB call should return a promise that evaluates to the processed userEvents 
   const getEvents = axios({
     method: 'post',
     url: `/events/getallevents`,
@@ -58,11 +58,13 @@ export const getUser = (userObj) => (dispatch, getState) => {
     console.log('getEvents returned')
     console.log(result.data);
     userTouchEvents = {}
+    //the line processes the API datat into an easily referenceable Object of Objects in state where the keys are eventId
     result.data.forEach(eventObj => userTouchEvents[eventObj.eventId] = eventObj)
     return Promise.resolve(userTouchEvents);
   }, (error) => {
     console.log(error)
   })
+
   // Stub data to sample DB
   //WE WILL NEED DATABASE USE ALIASES IN THE SELECT AND RETURNING STATEMENTS
   const userContactStub = [
@@ -71,14 +73,18 @@ export const getUser = (userObj) => (dispatch, getState) => {
     { contactId: 3, firstName: "Kat", lastName: '', email: '277@gmail.com', phoneNumber: '1231234455', prefferedMethod: 'text', contactCircle: 'family', contactPriority: 'low', touchEventIds: [] }
   ]
 
+  //process stub data
   userContacts = {}
   userContactStub.forEach(contactObj => userContacts[contactObj.contactId] = contactObj)
-
 
   const userTouchEventStub = [
     { eventId: 1, eventName: "Birthday", eventDate: '2022-01-09', touchTime: '4:00pm', eventImportance: 'high', eventRecurring: 'annual', numOfContacts: 1, associatedContacts: [2] },
     { eventId: 2, eventName: "Follow Up", eventDate: '2021-05-18', touchTime: '7:59am', eventImportance: 'medium', eventRecurring: 'once', numOfContacts: 2, associatedContacts: [1,3] },
   ]
+
+  //process stub data
+  userTouchEvents = {}
+  userTouchEventStub.forEach(eventObj => userTouchEvents[eventObj.eventId] = eventObj)
 
   const userInfoStub = {
     userId: 3,
@@ -89,21 +95,10 @@ export const getUser = (userObj) => (dispatch, getState) => {
   // takes the DB response and populates the userContacts object with each individual contact object
   // where the key is the contactId for simple lookup later (since ID may not equal array index)
   
-
-  userTouchEvents = {}
-  userTouchEventStub.forEach(eventObj => userTouchEvents[eventObj.eventId] = eventObj)
-
   userInfo = userInfoStub;
 
-  // console.log('User Contacts: ', userContacts)
-  // console.log('User Touch Events: ', userTouchEvents)
-  // console.log('User Info: ', userInfo)
-  // axios.get(/*specific path*/)
-  // .then(response => { //response = array of objects
-  //     response.forEach(contact => {
-  //        
-  //     })
-  // })
+
+  /* AT ONE POINT WE HAD THESE WORKING */
 
   // Promise.all([getEvents, getContacts])
   //   .then(data => {
@@ -167,13 +162,3 @@ export const viewSpecificTouch = (touchId) => ({
 export const closeCard = () => ({
   type: types.CLOSE_CARD,
 })
-
-/*
-
-export const ADD_CONTACT = 'ADD_CONTACT';
-export const ADD_TOUCH_EVENT ='ADD_TOUCH_EVENT';
-export const UPDATE_CONTACT = 'UPDATE_CONTACT';
-export const UPDATE_TOUCH_EVENT = 'UPDATE_TOUCH_EVENT';
-export const CLEAR_USER_DATA = 'CLEAR_USER_DATA';
-
-*/
