@@ -19,7 +19,7 @@ router.get('/getcontacts', dbController.getContact, (req, res) => {
 })
 
 router.patch('/updatecontactinfo/:contact_id', dbController.updateContact, (req, res) => {
-    res.sendStatus(200);
+    res.status(200).send('contact successfully updated');
 })
 
 router.delete('/deletecontact/:contact_id', dbController.deleteContact, (req, res) => {

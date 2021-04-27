@@ -4,7 +4,7 @@ const router = express.Router();
 const eventController = require('../controllers/eventController.js');
 
 router.post('/createevent', eventController.createevent, (req, res) => {
-    res.sendStatus(200);
+    res.status(200).send('event successdully created');
 })
 router.get('/getallevents/', eventController.getEvents, (req, res) => {
     res.status(200).json(res.locals.allEvents);
@@ -15,11 +15,11 @@ router.get('/geteventcontacts/:event_id', eventController.getEventContacts, (req
 })
 
 router.patch('/updateevent/:event_id', eventController.updateEvent, (req, res) => {
-    res.sendStatus(200);
+    res.status(200).send('event successfully updated');
 })
 
 router.delete('/deleteevent/:event_id', eventController.deleteEvent, (req, res) => {
-    res.sendStatus(200);
+    res.status(200).send('event successfully deleted');
 })
 
 // function switchCases (array) {

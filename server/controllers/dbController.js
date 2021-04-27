@@ -93,24 +93,10 @@ dbController.updateContact = (req, res, next) => {
   console.log(req.body)
   //iterate through req.body object, pushing keys and values into arrays if value of corresponding key is not equal to null
   for(let info in req.body){
-    // if(req.body[info]) {
       keys.push(info);
       values.push(req.body[info]);
-    // }
   }
-
-  console.log(keys);
-  let snakeCased = '';
-  keys.forEach(string => {
-    for(let i = 0; i < string.length; i++){
-      if(string[i] === string[i].toUpperCase){
-        
-      } else {
-        snakeCased = snakeCased + string[i];
-      }
-    }
-  })
-
+   
   //create beginning of query string and store it into variable
   let updateContactQuery = 'UPDATE contact SET ';
   //iterate through keys array adding to query string name of key equal to corresponding index of query values (???)
@@ -118,10 +104,11 @@ dbController.updateContact = (req, res, next) => {
     updateContactQuery = updateContactQuery + `${keys[i]} = $${i + 1}, `
   }                                           //contact_first_name = $1
   //remove ', ' from the end of string
+  console.log(updateContactQuery);
   updateContactQuerySliced = updateContactQuery.slice(0, -2);
+  console.log(updateContactQuerySliced);
   //add condition to the query string which specifies that updates to be implemented for contact whose id was in the req.params
-  updateContactQuerySliced = updateContactQuerySliced + ` WHERE contact_id = ${id}`;
-
+  updateContactQuerySliced = updateContactQuerySliced + ` WHERE contact_id = ${contact_id}`;
   async function updateContactInfo(){
     const update = await db.query(updateContactQuerySliced, values);
     console.log(update);
