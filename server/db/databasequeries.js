@@ -1,5 +1,7 @@
 /*
 
+Some of this queries are not used in the app but we decided to leave it for reference
+
 Adding a user to the user db:
 
 const addUserParams = [firstName, lastName, password, email]

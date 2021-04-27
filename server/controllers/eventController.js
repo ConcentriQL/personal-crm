@@ -77,13 +77,13 @@ eventController.updateEvent = (req, res, next) => {
             keys.push(info);
             values.push(req.body[info]);
     }
-    console.log(req.body);
+    //initialize query string
     let updateEventQuery = `UPDATE event SET `;
-
+    //push "column names" to be updated and "values" into query string
     for(let i = 0; i < keys.length; i++){
         updateEventQuery = updateEventQuery + `${keys[i]} = $${i + 1}, `;
     }
-    console.log(keys, values);
+    //remove ", " from the end of query string
     let updateEventQuerySliced = updateEventQuery.slice(0, -2);
     updateEventQuerySliced = updateEventQuerySliced + ` WHERE event_id = ${event_id}`;
 

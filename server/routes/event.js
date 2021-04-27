@@ -22,34 +22,4 @@ router.delete('/deleteevent/:event_id', eventController.deleteEvent, (req, res) 
     res.status(200).send('event successfully deleted');
 })
 
-// function switchCases (array) {
-//     let newString = '';
-//     let underscore = false;
-//     const obj = {};
-//     for (let i = 0; i < array.length; i++) {
-//         let keys = Object.keys(array[i])
-//         let values = Object.values(array[i])
-//         for (let j = 0; j < keys.length; j++) {
-//             for (let k = 0; k < keys[j].length; k++) {
-//                 if (underscore === true) {
-//                     newString = newString + keys[j][k].toUpperCase();
-//                     underscore = false;
-//                 }
-//                 else if (keys[j][k] === '_') {
-//                     underscore = true;
-//                 }
-//                 else {
-//                     newString = newString + keys[j][k];
-//                 }
-//             }
-//             obj[newString] = values[j];
-//             newString = '';
-//         }
-//     }
-//     return obj;
-// }
-
-// console.log(switchCases([{'this_is_snake_case': true, 'this_is': true}, {'this_is_snake_case1': true, 'this_is1': true}]));
-
-
 module.exports = router;
