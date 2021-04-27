@@ -13,6 +13,7 @@ eventController.createevent = (req, res, next) => {
     const newTouchQuery = `INSERT INTO event (event_name, event_date, touch_time, event_importance, event_recurring, numofcontacts)
     VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING event_id`;
+    //frontend is expecting the eventId to be returned we did not get to it
     db.query(newTouchQuery, newTouchParams)
       .then(result => { console.log(result)
     //   .then(result => {
@@ -27,7 +28,9 @@ eventController.createevent = (req, res, next) => {
 
 //GET ALL EVENTS
   eventController.getEvents = (req, res, next) => {
+    //the line below is very important do not delete!! I will find you!
     console.log('GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS');
+    //frontend is give us the userId in req.body
     const { userId } = req.body;
     const queryGetEvents = `SELECT e.event_id, e.event_name AS "eventName", e.event_date AS "eventDate", e.touch_time as "touchTime", e.event_importance AS "eventImportance", e.event_recurring AS "eventRecurring", e.numofcontacts AS "numofcontacts", j.contact_id AS "contactId"
     FROM event e LEFT JOIN joincontactandevent AS j ON e.event_id = j.event_id
@@ -38,12 +41,12 @@ eventController.createevent = (req, res, next) => {
     async function getAllEvents () {
         const events = await db.query(queryGetEvents);
         console.log('test');
-        // console.log(events.rows)
+        //the helper function below will make the touchIds into an array and get rid of repeating objects (helper function is at bottom of page)
         const newArray = updateCotnactIdtoArray(events.rows);
-        console.log(newArray);
+        // console.log(newArray);
         // res.locals.allEvents = {eventName: newArray.event_name, eventDate: newArray.event_date, touchTime: newArray.touch_time, numOfContacts: newArray.numofcontacts}
         res.locals.allEvents = newArray; 
-        console.log(res.locals.allEvents)
+        // console.log(res.locals.allEvents)
         return next();
     } getAllEvents()
     .catch(err => next({log: err}));
@@ -105,6 +108,7 @@ eventController.updateEvent = (req, res, next) => {
 eventController.deleteEvent = (req, res, next) => {
     const { event_id } = req.params;
     const idParams = [event_id];
+    //need to delete from event table and join table
     const deleteEventQuery = 'DELETE FROM event WHERE event_id = $1';
     const deleteTouchinJoin = `DELETE FROM joincontactandevent WHERE event_id = $1`;
     async function deleteEventInfo(){
