@@ -3,6 +3,20 @@ const path = require('path');
 const fetch = require('node-fetch');
 const db = require('../../models/dbModel')
 
+
+
+
+
+
+/*****  File is not being used. Old iteration ********/
+
+
+
+
+
+
+
+
 /*
 Middlewar for all touch events
 */
@@ -10,18 +24,18 @@ Middlewar for all touch events
 // const dbTouch = {};
 
 //creating a new touch event
-dbTouch.createTouch = (req, res, next) => {
-  const { name, date, time, importance, recurring, numContacts } = req.body;
-  const newTouchParams = [name, date, time, importance, recurring, numContacts];
-  const newTouchQuery = `INSERT INTO event (event_name, event_date, touch_time, event_importance, event_recurring, numofcontacts)
-  VALUES ($1, $2, $3, $4, $5)
-  RETURNING event_id`;
-  db.query(newTouchQuery, newTouchParams)
-    .then(result => result.json())
-    .then(result => {
-      console.log(result);
-    })
-};
+// dbTouch.createTouch = (req, res, next) => {
+//   const { name, date, time, importance, recurring, numContacts } = req.body;
+//   const newTouchParams = [name, date, time, importance, recurring, numContacts];
+//   const newTouchQuery = `INSERT INTO event (event_name, event_date, touch_time, event_importance, event_recurring, numofcontacts)
+//   VALUES ($1, $2, $3, $4, $5)
+//   RETURNING event_id`;
+//   db.query(newTouchQuery, newTouchParams)
+//     .then(result => result.json())
+//     .then(result => {
+//       console.log(result);
+//     })
+// };
 
 // //deleting a new touch
 // db.deleteTouch = (req, res, next) => {
