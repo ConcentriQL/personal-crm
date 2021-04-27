@@ -16,3 +16,5 @@ render(
     </Provider>,
     document.getElementById('root')
 );
+
+//Hello Team Front End! We used redux for our front end, most of what is rendering will be in MainContainer.jsx, Touch Event and Contacts are almost the same files and do the same things

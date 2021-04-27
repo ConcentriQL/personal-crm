@@ -32,12 +32,13 @@ const TouchEventsContainer = props => {
         key={i} 
         touchObj={userTouchEvents[key]} 
         userContacts={userContacts} 
+        viewSpecificTouch={props.viewSpecificTouch}
       />
     )
   }
 
   return(
-    <div>
+    <div className="touchContainer">
       <h2>Touches</h2>
       {touchEventCardList}
     </div>

@@ -27,62 +27,26 @@ eventController.createevent = (req, res, next) => {
 
 //GET ALL EVENTS
   eventController.getEvents = (req, res, next) => {
-    const queryGetEvents = `SELECT e.*, j.contact_id 
-    FROM event e LEFT JOIN joincontactandevent j ON e.event_id = j.event_id `;
+    console.log('GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS, GET EVENTS');
+    const { userId } = req.body;
+    const queryGetEvents = `SELECT e.event_id, e.event_name AS "eventName", e.event_date AS "eventDate", e.touch_time as "touchTime", e.event_importance AS "eventImportance", e.event_recurring AS "eventRecurring", e.numofcontacts AS "numofcontacts", j.contact_id AS "contactId"
+    FROM event e LEFT JOIN joincontactandevent AS j ON e.event_id = j.event_id
+    WHERE event_userid = ${userId}`;
+    // const queryGetEvents = `SELECT e.*, j.contact_id 
+    // FROM event e LEFT JOIN joincontactandevent j ON e.event_id = j.event_id
+    // WHERE  event_userid = ${userId}`;
     async function getAllEvents () {
         const events = await db.query(queryGetEvents);
         console.log('test');
-        console.log(events.rows)
-        const newArray = updateCotnactIdtoArray(events.rows)
-        console.log(newArray);
-         //initialize a new object to store previous event_ids
-        //initialize a new array
-        //iterate through the array of objects
-        //deconstruct event_id
-        //check if event_id is in our event_id obejct
-            //if yes -> deconstruct the contact_id 
-                        //push that contact_id into the contact_id array of the last object in our array
-        //if no then deconstruct contact_id
-            //set contact_id equal to an array with the contact_id value in the array
-            // console.log('function:')
-            // function test(events) {
-            //     const eventIds = {};
-            //     const newResultArr = [];
-            //     for (let i = 0; i < events.rows.length; i++) {
-            //         if (eventIds[events.rows.event_id]) {
-            //             const contactid = events.rows.contact_id;
-            //             newResultArr[newResultArr.length - 1].contact_id.push(contactid);
-            //         }
-            //         else {
-            //             const contactid = events.rows.contact_id;
-            //             events.rows.contact_id = [contactid];
-            //             newResultArr.push(events.rows[i]);
-            //         }
-            //     }
-            //     return newResultArr;
-            // }
-
-
-      
-            // console.log(test(events));
-            
-         /*
-         [{event_id: 1, contact_id: 2}, {event_id: 1, contact_id: 3}]
-         newObj = {};
-        for(let i = 0; i < array.length; i++){
-            if(!newObj[event_id]) newObj[event_id] = [array[i][contact_id]]
-            else(newObj[event_id].push(array[i][contact_id]))            
-        }
-        for(let keys in )
-        
-        */
-        // console.log('events.rows:')
         // console.log(events.rows)
-        res.locals.allEvents = {eventName: events.rows.event_name, eventDate: events.rows.event_date, touchTime: events.rows.touch_time, numOfContacts: events.rows.numofcontacts}
-        res.locals.allEvents = events.rows; 
+        const newArray = updateCotnactIdtoArray(events.rows);
+        console.log(newArray);
+        // res.locals.allEvents = {eventName: newArray.event_name, eventDate: newArray.event_date, touchTime: newArray.touch_time, numOfContacts: newArray.numofcontacts}
+        res.locals.allEvents = newArray; 
+        console.log(res.locals.allEvents)
         return next();
-    } getAllEvents ()
-    .catch(err => next(err));
+    } getAllEvents()
+    .catch(err => next({log: err}));
 }
 
 //GET ALL EVENT CONTACTS

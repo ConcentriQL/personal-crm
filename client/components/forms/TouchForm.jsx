@@ -46,27 +46,27 @@ const TouchForm = props => {
         //put API call here
 
     }>
-      <fieldset disabled={isViewOnly}>
-        <label htmlFor="event_name">Event: </label>
-        <input type="text" id="eventname" name="event_name" defaultValue={touch.eventName}/>
+      <fieldset  className="TouchForm-Container" disabled={isViewOnly}>
+        <label className="TouchForm-Field" htmlFor="event_name">Event: </label>
+        <input className="TouchForm-Field" type="text" id="eventname" name="event_name" defaultValue={touch.eventName}/>
         <br />
-        <label htmlFor="event_date">Date: </label>
-        <input type="text" id="event_date" name="event_date" defaultValue={touch.eventDate}
+        <label className="TouchForm-Field" htmlFor="event_date">Date: </label>
+        <input className="TouchForm-Field" type="text" id="event_date" name="event_date" defaultValue={touch.eventDate}
         />
         <br />
-        <label htmlFor="touch_time">Time: </label>
-        <input type="text" id="touch_time" defaultValue={touch.eventTime} name="touch_time" id="touch_time">
+        <label className="TouchForm-Field" htmlFor="touch_time">Time: </label>
+        <input className="TouchForm-Field" type="text" id="touch_time" defaultValue={touch.eventTime} name="touch_time" id="touch_time">
         </input>
         <br />
-        <label htmlFor="event_importance">Priority: </label>
-        <select defaultValue={touch.eventImpotance} id="event_importance" name="event_importance">
+        <label className="TouchForm-Field" htmlFor="event_importance">Priority: </label>
+        <select className="TouchForm-Field" defaultValue={touch.eventImpotance} id="event_importance" name="event_importance">
         <option value="high">High</option>
           <option value="medium">Medium</option>
           <option value="low">Low</option>
         </select>
         <br />
-        <label htmlFor="event_recurring">Recurring Touch?: </label>
-        <select defaultValue={touch.eventRecurring} id="event_recurring" name="event_recurring">
+        <label className="TouchForm-Field" htmlFor="event_recurring">Recurring Touch?: </label>
+        <select className="TouchForm-Field" defaultValue={touch.eventRecurring} id="event_recurring" name="event_recurring">
         <option value="once">Once</option>
           <option value="daily">Daily</option>
           <option value="weekly">Weekly</option>

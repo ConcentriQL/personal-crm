@@ -16,7 +16,7 @@ const ViewContact = props => {
   if (isNew && !canEdit) toggleEdit(true);
 
   return (
-    <div>
+    <div className="ViewContact-Container">
       <h2>Contact</h2>{!isNew && <button className="edit-form-button" onClick={() => toggleEdit(true)}>Edit</button>}
       <button className="form-back-button" onClick={ () => props.closeCard() }>Back</button>
       <button className="delete-button">Delete</button>

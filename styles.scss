@@ -1,3 +1,4 @@
+
 h1 {
   grid-column: 2 / 3;
   display: flex;
@@ -9,7 +10,148 @@ body{
   display: grid;
   grid-template-columns: 1fr minmax(200px, 800px) 1fr;
   justify-content: center;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Oswald', sans-serif;
+  background-color: rgba(255, 246, 187, .7)
 }
+
+.App-Banner {
+  height: 20em;
+}
+
+// ****Login Page******
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10em;
+}
+
+.login-page form {
+  width: 20em;
+  height: 7em;
+  display: grid;
+}
+
+.login-page input {
+  border-radius: 3px;
+  border-color: rgba(0, 0, 0, 0.61);
+  box-shadow: 2px 2px 2px rgb(150, 146, 146);
+}
+
+.login-page input:hover {
+  cursor: pointer;
+  background-color: rgb(252, 245, 245);
+}
+
+
+.login-page button {
+  border-radius: 3px;
+  border-color: rgba(0, 0, 0, 0.61);
+  box-shadow: 2px 2px 2px rgb(150, 146, 146);
+}
+
+.login-page button:hover {
+  cursor: pointer;
+  background-color: rgb(187, 178, 178);
+}
+
+// ******  Main Page **********
+
+.main-container h3 {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 900;
+    margin-block-start: 0;
+    margin-top: -1em;
+}
+
+.main-container button {
+  border-radius: 3px;
+  border-color: rgba(0, 0, 0, 0.61);
+  box-shadow: 2px 2px 2px rgb(150, 146, 146);
+  margin: auto;
+  width: 15em;
+  margin-bottom: 10px;  
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.main-container button:hover {
+  cursor: pointer;
+  background-color: rgb(187, 178, 178);
+}
+
+.create-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  
+  width: 30vw; 
+  margin: auto;
+}
+
+.view-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 30vw;
+  margin: auto;
+}
+
+.create-contacts-button, .view-contacts-button {
+  grid-column: 1;
+  margin: 10 px;
+  font-size: 1.3em;
+}
+
+.create-touches-button, .view-touches-button {
+  grid-column: 2;
+  margin: 10px;
+  font-size: 1.3em;
+}
+
+// ******** Forms ************
+.ViewContact-Container button {
+  border-radius: 3px;
+  border-color: rgba(0, 0, 0, 0.61);
+  box-shadow: 2px 2px 2px rgb(150, 146, 146);
+  margin: auto;
+  width: 8em;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+  margin-left: 5px;
+  margin-right: 5px;  
+  font-size: 1.2em;
+}
+
+.ContactForm-Field, .TouchForm-Field {
+  margin-bottom: 20px;
+}
+
+.ContactForm-Container, .TouchForm-Container input {
+  border-radius: 3px;
+  border-color: rgba(0, 0, 0, 0.61);
+  box-shadow: 2px 2px 2px rgb(150, 146, 146);
+}
+
+.ContactForm-Container, .TouchForm-Container input:hover {
+  cursor: pointer;
+  background-color: rgb(252, 245, 245);
+}
+
+input#contact_phonenumber {
+  margin-bottom: 20px;
+}
+
+fieldset.ContactForm-Container, fieldset.TouchForm-Container {
+  border-radius: 10px;
+  background-color: rgb(245, 245, 229);
+  padding: 20px;
+}
+
+
 
 a {
   text-decoration: none;

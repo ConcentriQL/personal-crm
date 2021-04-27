@@ -36,7 +36,7 @@ const MainContainer = props => {
     let view = [];
     //set view variable to render component based on the state of the app
     //this state is toggled by the user clicking buttons a the top of the main container
-    console.log(props.cardView.type);
+    //console.log(props.cardView.type);
 
     //if the state "cardView" has an id set to new, it means we want to create a new contact, so there is no obj to pass down
     const contactObj = props.cardView.id === 'new' ? 'new' : props.userContacts[props.cardView.id];
@@ -66,7 +66,7 @@ const MainContainer = props => {
           viewContacts={props.viewContacts}
           viewTouchEvents={props.viewTouchEvents}
         />)
-        view.push( <TouchEventsContainer />)
+        view.push(<TouchEventsContainer />)
         break;
       }
     }
