@@ -15,16 +15,36 @@ const mapDispatchToProps = (dispatch) => ({
 const LoginContainer = props => {
   return (
     <div className="login-page">
-      <form className="login-form" action="/" method="post" onSubmit={(e) => {
+      <form className="login-form" onSubmit={(e) => {
         e.preventDefault();
+        // axios({
+        //   method: 'post',
+        //   url: '/login/',
+        //   data: {
+        //     email: e.target[0].value,
+        //     password: e.target[1].value
+        //   }
+        // })
+        // .then((result) => {
+        //   console.log(result.data)
+        //   if (result.data === false) result.data = 1;
+        //   props.getUser(result.data)
+        //   console.log(result.data)
+        //   props.logIn();
+        // }, (error) => {
+        //   console.log(error)
+        // })
+        //mike@hotmail.com
         //do db post request 
+        // body: {email: e.target[0].value, password: e.target[1].value}
         //check if response is 200
-        //if yes invoke logIn & getUser
+        //if yes invoke logIn & getUser .then()
         //save the sent back id to use in getUser
         //else render error message
         if (true) props.logIn();
-        props.getUser(3);
-        console.log(e.target[0].value, e.target[1].value)
+        props.getUser(2)
+        // props.getUser(/*userId*/);
+        // console.log(e.target[0].value, e.target[1].value)
       }}>
         <label htmlFor="username">Username </label>
         <input type="text" id="username" name="username" />
@@ -32,19 +52,8 @@ const LoginContainer = props => {
         <label htmlFor="password">Password </label>
         <input type="password" id="password" name="password" />
         <br />
-        <button>Login</button>
+        <button className="login-button">Login</button>
       </form>
-      {/* onClick = {(event) => {
-            event.preventDefault
-        //   axios.post('/PLACEHOLDER_LOGIN', {body: {
-        //       email: document.getElementById('username').value
-        //   }})
-        //     .then(isValid => {
-        //       isValid ? props.logIn() : window.alert("Invalid Username AND/OR Password");
-        //     })
-        //  }
-      //   >Login</button>
-        // </form> */}
     </div>
   )
 }

@@ -7,11 +7,13 @@ import React from 'react';
 const ContactForm = props => {
 
   const {isViewOnly, contactObj} = props;
+  const isNew = (contactObj === 'new')
+
   //default state for the form, used for "Create new Contact"
   let contact = { 
     contactId: null, 
     firstName: null, 
-    lastName: '', 
+    lastName: null, 
     email: null, 
     phoneNumber: null,
     prefferedMethod: null,
@@ -19,8 +21,8 @@ const ContactForm = props => {
     contactPriority: 'Medium', 
   }
 
-  //if contactInfo obj is supplied, then we know this will be an update, so we overwrite the default values with the existing data
-  if(props.contactObj) contact = Object.assign(contact,contactObj)
+  //if the contactObj is not new, overwrite the default states with the contact specific info
+  if(!isNew) contact = Object.assign(contact,contactObj)
   // need to fix the :disabled CSS https://stackoverflow.com/questions/47840194/how-to-disable-input-but-not-get-the-greyed-out-tone-on-the-text
 
   //render form
@@ -32,40 +34,47 @@ const ContactForm = props => {
       className={`ContactForm ${props.formClass}`} 
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(e.target)}
+        console.log(e.target)
+        
+        if(isNew) {}//send create API call
+        else if(!isNew) {} //send update API Call
+        else {
+          console.log('and error occured submitting contact form');
+        }
+      }
         //put API call here
 
     }>
-      <fieldset disabled={isViewOnly}>
-        <label htmlFor="firstName">First Name: </label>
-        <input type="text" id="firstName" name="contact_first_name" defaultValue={contact.firstName}/>
+      <fieldset className="ContactForm-Container" disabled={isViewOnly}>
+        <label className="ContactForm-Field" htmlFor="firstName">First Name: </label>
+        <input className="ContactForm-Field" type="text" id="firstName" name="contact_first_name" defaultValue={contact.firstName}/>
         <br />
-        <label htmlFor="contact_last_name">Last Name: </label>
-        <input type="text" id="contact_last_name" name="contact_last_name" defaultValue={contact.lastName}/>
+        <label className="ContactForm-Field" htmlFor="contact_last_name">Last Name: </label>
+        <input className="ContactForm-Field" type="text" id="contact_last_name" name="contact_last_name" defaultValue={contact.lastName}/>
         <br />
-        <label htmlFor="contact_preferredcontactmethod">Preferred Contact Method: </label>
-        <select defaultValue={contact.prefferedMethod} name="contact_preferredcontactmethod" id="contact_preferredcontactmethod">
+        <label className="ContactForm-Field" htmlFor="contact_preferredcontactmethod">Preferred Contact Method: </label>
+        <select className="ContactForm-Field" defaultValue={contact.prefferedMethod} name="contact_preferredcontactmethod" id="contact_preferredcontactmethod">
           <option value="call">Call</option>
           <option value="text">Text</option>
           <option value="email">Email</option>
         </select>
         <br />
-        <label htmlFor="contact_email">Email: </label>
-        <input type="email" id="contact_email" name="contact_email" defaultValue={contact.email}/>
+        <label className="ContactForm-Field" htmlFor="contact_email">Email: </label>
+        <input className="ContactForm-Field" type="email" id="contact_email" name="contact_email" defaultValue={contact.email}/>
         <br />
-        <label htmlFor="contact_phonenumber">Phone Number: </label>
+        <label className="ContactForm-Field" htmlFor="contact_phonenumber">Phone Number: </label>
         <input type="tel" id="contact_phonenumber" name="contact_phonenumber" defaultValue={contact.phoneNumber}/>
         <br />
-        <label htmlFor="contact_circle">Cirlce: </label>
-        <select defaultValue={contact.contactCircle} id="contact_circle" name="contact_circle">
+        <label className="ContactForm-Field" htmlFor="contact_circle">Circle: </label>
+        <select className="ContactForm-Field" defaultValue={contact.contactCircle} id="contact_circle" name="contact_circle">
           <option value=''></option>
           <option value="family">Family</option>
           <option value="friends">Friends</option>
           <option value="business">Business</option>
           <option value="other">Other</option>
         </select>
-        <label htmlFor="contact_priority">Priority: </label>
-        <select defaultValue={contact.contactPriority} id="contact_priority" name= "contact_priority">
+        <label className="ContactForm-Field" htmlFor="contact_priority">Priority: </label>
+        <select className="ContactForm-Field" defaultValue={contact.contactPriority} id="contact_priority" name= "contact_priority">
           <option value="high">High</option>
           <option value="medium">Medium</option>
           <option value="low">Low</option>

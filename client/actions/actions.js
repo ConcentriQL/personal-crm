@@ -19,11 +19,50 @@ import * as types from './actionTypes.js';
      - User Contacts (Array of Objects)
      - User TouchEvents (Array of Objects)
  */
-export const getUser = (userId) => (dispatch, getState) => {
-
+export const getUser = (userObj) => (dispatch, getState) => {
+  
   // variables to include in payload
   let userContacts, userTouchEvents, userInfo;
+  
+  const { userId } = userObj;
+  console.log('USER ID IS: ',userId)
 
+  userInfo = userObj;
+
+  const getContacts = axios({
+    method: 'post',
+    url: `/database/getcontacts`,
+    data: {
+      userId: userId
+    }
+  })
+  .then((result) => {
+    console.log('getContacts returned')
+    console.log(result.data);
+    userContacts = {}
+    result.data.forEach(contactObj => userContacts[contactObj.contactId] = contactObj)
+    return Promise.resolve(userContacts);
+  })
+  .catch( (error) => {
+    console.log(error)
+  })
+
+  const getEvents = axios({
+    method: 'post',
+    url: `/events/getallevents`,
+    data: {
+      userId: userId
+    }
+  })
+  .then((result) => {
+    console.log('getEvents returned')
+    console.log(result.data);
+    userTouchEvents = {}
+    result.data.forEach(eventObj => userTouchEvents[eventObj.eventId] = eventObj)
+    return Promise.resolve(userTouchEvents);
+  }, (error) => {
+    console.log(error)
+  })
   // Stub data to sample DB
   //WE WILL NEED DATABASE USE ALIASES IN THE SELECT AND RETURNING STATEMENTS
   const userContactStub = [
@@ -31,6 +70,10 @@ export const getUser = (userId) => (dispatch, getState) => {
     { contactId: 2, firstName: "James", lastName: null, email: 'other@gmail.com', phoneNumber: '987654321', prefferedMethod: 'email', contactCircle: 'family', contactPriority: 'low', touchEventIds: [1, 2] },
     { contactId: 3, firstName: "Kat", lastName: '', email: '277@gmail.com', phoneNumber: '1231234455', prefferedMethod: 'text', contactCircle: 'family', contactPriority: 'low', touchEventIds: [] }
   ]
+
+  userContacts = {}
+  userContactStub.forEach(contactObj => userContacts[contactObj.contactId] = contactObj)
+
 
   const userTouchEventStub = [
     { eventId: 1, eventName: "Birthday", eventDate: '2022-01-09', touchTime: '4:00pm', eventImportance: 'high', eventRecurring: 'annual', numOfContacts: 1, associatedContacts: [2] },
@@ -45,8 +88,7 @@ export const getUser = (userId) => (dispatch, getState) => {
   }
   // takes the DB response and populates the userContacts object with each individual contact object
   // where the key is the contactId for simple lookup later (since ID may not equal array index)
-  userContacts = {}
-  userContactStub.forEach(contactObj => userContacts[contactObj.contactId] = contactObj)
+  
 
   userTouchEvents = {}
   userTouchEventStub.forEach(eventObj => userTouchEvents[eventObj.eventId] = eventObj)
@@ -63,14 +105,30 @@ export const getUser = (userId) => (dispatch, getState) => {
   //     })
   // })
 
-  dispatch({
-    type: types.GET_USER,
-    payload: {
-      userContacts: userContacts,
-      userTouchEvents: userTouchEvents,
-      userInfo: userInfo
-    },
-  })
+  // Promise.all([getEvents, getContacts])
+  //   .then(data => {
+  //     console.log(data)
+  //     dispatch({
+  //       type: types.GET_USER,
+  //       payload: {
+  //         userContacts: userContacts,
+  //         userTouchEvents: userTouchEvents,
+  //         userInfo: userInfo
+  //       }
+  //     })
+  //   })
+  //   .catch((err) => {
+  //     console.log('error in getUser', err)
+  //   })
+
+    dispatch({
+      type: types.GET_USER,
+      payload: {
+        userContacts: userContacts,
+        userTouchEvents: userTouchEvents,
+        userInfo: userInfo
+      }
+    })
 }
 
 /*

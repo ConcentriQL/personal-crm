@@ -53,17 +53,26 @@ dbController.createContact = (req, res, next) => {
 
 //get contacts
 dbController.getContact = (req, res, next) => {
-  console.log('in here')
-  const getContactsQuery = 'SELECT contact_first_name as "contactFirstName", contact_last_name as "contactLastName", contact_email as "contactEmail" FROM contact';
+  const { userId } = req.body;
+  const getContactsQuery = `
+  SELECT c.contact_first_name AS "firstName", c.contact_last_name AS "lastName", c.contact_email AS "email", c.contact_id AS "contactId", j.event_id AS "touchEventIds", c.contact_phonenumber AS "phoneNumber", contact_preferredcontactmethod AS "prefferedMethod", c.contact_circle AS "contactCircle", c.contact_priority AS "contactPriority", 
+  FROM contact c
+  LEFT JOIN joincontactandevent j
+  ON c.contact_id = j.contact_id
+  WHERE c.contact_userid = ${userId};`;
 
   async function contactsInfo(){
     const result = await db.query(getContactsQuery);
-    res.locals.contactInfo = result.rows;
+    const newArray = updateCotnactIdtoArray(result.rows)
+    console.log('newArray')
+    console.log(newArray)
+    res.locals.contactInfo = newArray;
     return next();
-  } contactsInfo()
-  .catch(err => {
-    next(err);
-  });
+  } 
+  contactsInfo()
+    .catch(err => {
+      next({log: err});
+    });
 };
 
 
@@ -131,5 +140,37 @@ dbController.updateContact = (req, res, next) => {
 
 }
 
+function updateCotnactIdtoArray (arr) {
+  console.log('in the function')
+  //initialize an event_id holder object w/ event_id's from previous objects as keys and true as values
+  const id = {};
+  //initialzing a new array that will be returning. We'll push in all objects that have an evnet_id that is not in our id object
+  const newArr = [];
+  //iterate through initial array
+  for (let i = 0; i < arr.length; i++) {
+    //check if the current object's event_id is currently in our id object
+    if (id[arr[i].contactId]) {
+      //if it is then grab the current objects contact_id and store it in variable c
+      let c = arr[i].touchEventIds
+      //push variable c in the previous object in our newArr's contact_id's array
+      newArr[newArr.length - 1].touchEventIds.push(c);
+    }
+    //if event_id is not current in our id object then just into this else
+    else {
+      //grab the contact_id and set equal to c
+      let c = arr[i].touchEventIds;
+      //grab the key contact_id in our object and reassign the value to be an array with c in it
+      arr[i].touchEventIds = [c];
+      //push object into newArr
+      newArr.push(arr[i])
+      //grab the event_id from our current object
+      let contact = arr[i].contactId;
+      //store the event_id into the id object for future checking
+      id[contact] = true;
+    }
+  }
+  //return newArr
+  return newArr;
+}
 
 module.exports = dbController;

@@ -9,7 +9,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const ContactCard = props => {
-
   const { contactObj } = props;
   const contactId = contactObj.contactId
 
