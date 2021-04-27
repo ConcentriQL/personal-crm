@@ -1,5 +1,6 @@
 /*
 
+Some of this queries are not used in the app but we decided to leave it for reference
 
 /* This is where we're storing all the plain query strings
 

@@ -7,8 +7,8 @@ const eventController = {};
 
 //CREATE A NEW TOUCH EVENT
 eventController.createevent = (req, res, next) => {
-    const { event_name, event_date, touch_time, event_importance, event_recurring, num_of_contacts } = req.body;
-    const newTouchParams = [event_name, event_date, touch_time, event_importance, event_recurring, num_of_contacts];
+    const { event_name, event_date, touch_time, event_importance, event_recurring, numofcontacts } = req.body;
+    const newTouchParams = [event_name, event_date, touch_time, event_importance, event_recurring, numofcontacts];
     console.log(req.body);
     const newTouchQuery = `INSERT INTO event (event_name, event_date, touch_time, event_importance, event_recurring, numofcontacts)
     VALUES ($1, $2, $3, $4, $5, $6)
@@ -16,10 +16,6 @@ eventController.createevent = (req, res, next) => {
     //frontend is expecting the eventId to be returned we did not get to it
     db.query(newTouchQuery, newTouchParams)
       .then(result => { console.log(result)
-    //   .then(result => {
-    //     console.log(result);
-    //     //this is not the actually spot for eventId
-    //     res.locals.eventId = result;
         return next();
       })
     //   })
@@ -57,11 +53,11 @@ eventController.createevent = (req, res, next) => {
 eventController.getEventContacts = (req, res, next) => {
     const { event_id } = req.params;
     const touch = [event_id];
-    const grabContacts = `SELECT c.*, e.event_name, e.event_date, e.touch_time, e.numofcontacts
-    FROM contact c
-    INNER JOIN joinContactAndEvent j
+    const grabContacts = `SELECT c.contact_email AS "contactEmail", c.contact_phonenumber AS "contactPhonenumber", c.contact_preferredcontactmethod AS "contactPreferredcontactmethod", c.contact_circle AS "contactCircle", c.contact_priority AS "contactPriority", c.contact_first_name AS "contactFirstName", c.contact_last_name AS "contactLastName", c.contact_userid AS "contactUserid", e.event_name AS "eventName", e.event_date AS "eventDate", e.touch_time AS "touchTime", e.numofcontacts AS "numofcontacts"
+    FROM contact AS c
+    INNER JOIN joinContactAndEvent AS j
     ON c.contact_id = j.contact_id
-    INNER JOIN event e
+    INNER JOIN event AS e
     ON j.event_id = e.event_id
     WHERE e.event_id = $1`;
     async function listContacts () {
@@ -70,7 +66,8 @@ eventController.getEventContacts = (req, res, next) => {
       res.locals.allContacts = result.rows;
       return next();
     } listContacts()
-    .catch(err => next(err))
+    .catch(err => {
+      next(err)})
   }
 
 //UPDATE EVENT
@@ -78,22 +75,20 @@ eventController.getEventContacts = (req, res, next) => {
 eventController.updateEvent = (req, res, next) => {
     
     const keys = [], values = [];
-    const { id } = req.params;
+    const { event_id } = req.params;
     for(let info in req.body){
-        if(req.body[info]){
             keys.push(info);
             values.push(req.body[info]);
-        }
     }
-    console.log(req.body);
+    //initialize query string
     let updateEventQuery = `UPDATE event SET `;
-
+    //push "column names" to be updated and "values" into query string
     for(let i = 0; i < keys.length; i++){
         updateEventQuery = updateEventQuery + `${keys[i]} = $${i + 1}, `;
     }
-    console.log(keys, values);
+    //remove ", " from the end of query string
     let updateEventQuerySliced = updateEventQuery.slice(0, -2);
-    updateEventQuerySliced = updateEventQuerySliced + ` WHERE event_id = ${id}`;
+    updateEventQuerySliced = updateEventQuerySliced + ` WHERE event_id = ${event_id}`;
 
     async function updateEventInfo(){
         const updated = await db.query(updateEventQuerySliced, values);
@@ -121,7 +116,7 @@ eventController.deleteEvent = (req, res, next) => {
 
 
 
-  //Grabbing all contacts associated with a specific touch
+  //Grabbing all contacts ASsociated with a specific touch
 
 /*
 contact_id = 1     j.contact_id = 1   j.event_id = 1    event_id = 1
@@ -131,7 +126,7 @@ contact_id = 3     j.contact_id = 2   j.event_id = 1    event_id = 2
 
 function updateCotnactIdtoArray (arr) {
   console.log('in the function')
-  //initialize an event_id holder object w/ event_id's from previous objects as keys and true as values
+  //initialize an event_id holder object w/ event_id's from previous objects AS keys and true AS values
   const id = {};
   //initialzing a new array that will be returning. We'll push in all objects that have an evnet_id that is not in our id object
   const newArr = [];
@@ -140,15 +135,16 @@ function updateCotnactIdtoArray (arr) {
     //check if the current object's event_id is currently in our id object
     if (id[arr[i].event_id]) {
       //if it is then grab the current objects contact_id and store it in variable c
-      let c = arr[i].contact_id
+      let c = arr[i].contactId
       //push variable c in the previous object in our newArr's contact_id's array
       newArr[newArr.length - 1].contact_id.push(c);
+      // console.log('new arr1', newArr);
     }
     //if event_id is not current in our id object then just into this else
     else {
       //grab the contact_id and set equal to c
-      let c = arr[i].contact_id;
-      //grab the key contact_id in our object and reassign the value to be an array with c in it
+      let c = arr[i].contactId;
+      //grab the key contact_id in our object and reASsign the value to be an array with c in it
       arr[i].contact_id = [c];
       //push object into newArr
       newArr.push(arr[i])
@@ -156,6 +152,7 @@ function updateCotnactIdtoArray (arr) {
       let event = arr[i].event_id;
       //store the event_id into the id object for future checking
       id[event] = true;
+      // console.log('new arr', newArr)
     }
   }
   //return newArr
