@@ -1,7 +1,4 @@
-# redlipped-batfish-go
-
-
-#### Link to Scratch Project Brief ####
+# The Personal CRM that keeps you in-touch with the most important people.
 
 
 
